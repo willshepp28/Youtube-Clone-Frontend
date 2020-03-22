@@ -9,6 +9,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { WatchComponent } from './watch/watch.component';
 import { ThumbnailComponent } from './core/components/thumbnails/thumbnail/thumbnail.component';
 import { CommentsComponent } from './core/components/comments/comments/comments.component';
+import { HeaderComponent } from './core/components/header/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CommentsComponent } from './core/components/comments/comments/comments.
     ChannelComponent,
     WatchComponent,
     ThumbnailComponent,
-    CommentsComponent
+    CommentsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
