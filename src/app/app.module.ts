@@ -12,6 +12,7 @@ import { CommentsComponent } from './core/components/comments/comments/comments.
 import { HeaderComponent } from './core/components/header/header/header.component';
 import { LogoComponent } from './core/components/icons/logo/logo/logo.component';
 import { VideoCameraComponent } from './core/components/icons/video-camera/video-camera/video-camera.component';
+import { VideoComponent } from './core/components/video/video/video.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VideoCameraComponent } from './core/components/icons/video-camera/video
     CommentsComponent,
     HeaderComponent,
     LogoComponent,
-    VideoCameraComponent
+    VideoCameraComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
