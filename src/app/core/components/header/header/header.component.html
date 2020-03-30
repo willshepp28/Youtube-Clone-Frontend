@@ -18,23 +18,29 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="createVideo">
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Title">
+            <input type="text" class="form-control" formControlName="title" placeholder="Title">
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+            <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Description"></textarea>
           </div>
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile">
+            <input type="file" class="custom-file-input" id="customFile" (change)="onSelectFile($event)">
             <label class="custom-file-label" for="customFile">Choose file</label>
           </div>
         </form>
+        <!-- Video Preview -->
+        <div class="" *ngIf="format==='video' && url" style="margin-top: 25px; padding: 5px;">
+          <h4>Video Preview</h4>
+          <video [src]="url" height="200" controls></video> <br/>
+        </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary border-none bg-black" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary border-none bg-black" data-dismiss="modal" (click)="onClose()">Close</button>
         <button type="button" class="btn btn-primary bg-youtube-red border-none">Save changes</button>
       </div>
     </div>
