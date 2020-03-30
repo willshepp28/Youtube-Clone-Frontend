@@ -15,6 +15,7 @@ import { HeaderComponent } from './core/components/header/header/header.componen
 import { LogoComponent } from './core/components/icons/logo/logo/logo.component';
 import { VideoCameraComponent } from './core/components/icons/video-camera/video-camera/video-camera.component';
 import { VideoComponent } from './core/components/video/video/video.component';
+import { VideoService } from './core/services/video/video.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { VideoComponent } from './core/components/video/video/video.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    VideoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

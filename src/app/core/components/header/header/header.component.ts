@@ -42,6 +42,14 @@ export class HeaderComponent implements OnInit {
 
   onClose() {
     this.url = null;
-  };
+  }
+
+  addNewVideo() {
+
+    if (this.createVideo.invalid) {
+      return;
+  }
+
+  }
 
 }
