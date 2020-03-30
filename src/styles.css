@@ -2,4 +2,20 @@
 
 body {
   background-color: #F9F9F9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.bg-youtube-red {
+  background-color: #FF0001 !important;
+}
+
+
+.border-none {
+  border: none !important;
+}
+
+.bg-black {
+  background-color: black;
 }
