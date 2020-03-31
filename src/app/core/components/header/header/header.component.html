@@ -1,7 +1,25 @@
-<nav class="navbar" style="background-color: #FFFFFF; height: 56px;">
+<nav class="navbar header-box-shadow" style="background-color: #FFFFFF; height: 56px;">
   <a class="navbar-brand" [routerLink]="['/home']"><youtube-logo></youtube-logo></a>
 
-  <youtube-video-camera style="height: 32px;" data-toggle="modal" data-target="#exampleModal" ></youtube-video-camera>
+  <ul class='nav pull-right'>
+    <li style="height: 50px;">
+        <youtube-video-camera  data-toggle="modal" data-target="#exampleModal"  ></youtube-video-camera>
+    </li>
+    <li>
+      <a *ngIf="isLoggedIn; else notLoggedIn">
+        <a class='nav-link'>
+          <div class="rounded-circle" style="background-color: #EF6B02; color: white; height: 32px; width: 32px;">
+            <p class="mx-auto" style="text-align: center; padding: 3px;">W</p>
+          </div>
+        </a>
+      </a>
+      <ng-template #notLoggedIn>
+        <a [routerLink]="['/login']" class="nav-link" style="height: 50px;">
+          <youtube-sign-in></youtube-sign-in>
+        </a>
+      </ng-template>
+    </li>
+  </ul>
 </nav>
 
 
@@ -28,8 +46,12 @@
             <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Description"></textarea>
           </div>
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile" (change)="onSelectFile($event)">
+            <input type="file" accept="video/*" class="custom-file-input" id="customFile" formControlName="video" (change)="onSelectFile($event)">
             <label class="custom-file-label" for="customFile">Choose file</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary border-none bg-black" data-dismiss="modal" (click)="onClose()">Close</button>
+            <button type="submit" class="btn btn-primary bg-youtube-red border-none">Save changes</button>
           </div>
         </form>
         <!-- Video Preview -->
@@ -37,11 +59,6 @@
           <h4>Video Preview</h4>
           <video [src]="url" height="200" controls></video> <br/>
         </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary border-none bg-black" data-dismiss="modal" (click)="onClose()">Close</button>
-        <button type="button" class="btn btn-primary bg-youtube-red border-none">Save changes</button>
       </div>
     </div>
   </div>

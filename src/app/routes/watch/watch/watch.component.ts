@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-watch',
+  selector: 'youtube-watch',
   templateUrl: './watch.component.html',
   styleUrls: ['./watch.component.css']
 })

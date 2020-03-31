@@ -19,3 +19,20 @@ body {
 .bg-black {
   background-color: black;
 }
+
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.box-shadow-1 {
+  -webkit-box-shadow: 8px 10px 0 0 rgba(26,130,226,.1);
+    box-shadow: 8px 10px 0 0 rgba(26,130,226,.1);
+}
+
+
+.no-underline {
+  text-decoration: none;
+}
+
+
