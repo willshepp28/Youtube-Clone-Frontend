@@ -22,10 +22,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.createVideo = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
       video: ['', [Validators.required]]
-    })
+    });
   }
 
 

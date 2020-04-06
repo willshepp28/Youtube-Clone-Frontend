@@ -12,6 +12,7 @@ export class AuthenticationService {
 
   private API_URL: any = environment.baseUrl + "/authentication";
 
+
   getToken(): string {
     return localStorage.getItem("token");
   }
@@ -25,10 +26,12 @@ export class AuthenticationService {
   }
 
   logIn(userCredentials): any {
+    console.log(this.API_URL);
     return this.http.post<any>( this.API_URL + "/login", userCredentials)
       .pipe(
         map(user => {
           localStorage.setItem('token', user.token);
+          localStorage.setItem('has_channel', user.hasChannel);
         })
       );
   }
