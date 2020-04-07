@@ -6,7 +6,7 @@
         <youtube-video-camera  data-toggle="modal" data-target="#exampleModal"  ></youtube-video-camera>
     </li>
     <li>
-      <a *ngIf="isLoggedIn; else notLoggedIn">
+      <a *ngIf="isLoggedIn | async; else notLoggedIn">
         <a class='nav-link'>
           <div class="rounded-circle" style="background-color: #EF6B02; color: white; height: 32px; width: 32px;">
             <p class="mx-auto" style="text-align: center; padding: 3px;">W</p>

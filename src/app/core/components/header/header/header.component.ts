@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { VideoService } from 'src/app/core/services/video/video.service';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { VideoService } from 'src/app/core/services/video/video.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Input() isLoggedIn;
+  isLoggedIn: any;
   createVideo: FormGroup;
   format: string;
   url: any;
@@ -17,10 +18,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private videoService: VideoService
-  ) { }
+    private videoService: VideoService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.isLoggedIn = authenticationService.isLoggedIn();
+   }
 
   ngOnInit() {
+
     this.createVideo = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],

@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  userLoggedIn = new BehaviorSubject(this.hasToken());
 
   constructor(private http: HttpClient) { }
 
@@ -17,8 +19,12 @@ export class AuthenticationService {
     return localStorage.getItem("token");
   }
 
-  isLoggedIn(){
+  hasToken() {
     return !!localStorage.getItem("token");
+  }
+
+  isLoggedIn() {
+    return this.userLoggedIn.asObservable();
   }
 
   registerUser(userCredentials): any {
@@ -32,11 +38,14 @@ export class AuthenticationService {
         map(user => {
           localStorage.setItem('token', user.token);
           localStorage.setItem('has_channel', user.hasChannel);
+          this.userLoggedIn.next(true);
         })
       );
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem("has_channel")
+    this.userLoggedIn.next(false);
   }
 }
