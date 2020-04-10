@@ -1,3 +1,12 @@
 .header-box-shadow {
   box-shadow: 0 2px 6px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
 }
+
+youtube-video-camera  {
+  fill: #606060;
+}
+
+
+youtube-sign-in {
+  fill: #606060
+}

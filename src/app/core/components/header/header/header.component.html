@@ -2,11 +2,15 @@
   <a class="navbar-brand" [routerLink]="['/home']"><youtube-logo></youtube-logo></a>
 
   <ul class='nav pull-right'>
-    <li style="height: 50px;">
-        <youtube-video-camera  data-toggle="modal" data-target="#exampleModal"  ></youtube-video-camera>
+    <li style="height: 50px;" >
+    <youtube-video-camera *ngIf="isLoggedIn && userHasChannel" data-toggle="modal" data-target="#exampleModal" ></youtube-video-camera>
+    <youtube-video-camera *ngIf="isLoggedIn && !userHasChannel" data-toggle="modal" data-target="#createChannelModal"></youtube-video-camera>
+    <a [routerLink]="['/login']" class="nav-link" style="height: 50px; position: relative; top: -4px;" *ngIf="!isLoggedIn">
+      <youtube-video-camera ></youtube-video-camera>
+    </a>
     </li>
     <li>
-      <a *ngIf="isLoggedIn | async; else notLoggedIn">
+      <a *ngIf="isLoggedIn; else notLoggedIn">
         <a class='nav-link'>
           <div class="rounded-circle" style="background-color: #EF6B02; color: white; height: 32px; width: 32px;">
             <p class="mx-auto" style="text-align: center; padding: 3px;">W</p>
@@ -25,7 +29,7 @@
 
 
 
-<!-- Modal -->
+<!-- Video to be show when user has is logging in and has channel Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -59,6 +63,39 @@
           <h4>Video Preview</h4>
           <video [src]="url" height="200" controls></video> <br/>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Channel Modal -->
+<div class="modal fade" id="createChannelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create your channel name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger" style="font-size: 11px;">You must first create a channel to start adding videos</p>
+        <form [formGroup]="createChannel" (ngSubmit)="addNewChannel()">
+          <div class="form-group">
+            <label for="title">Channel name</label>
+            <input type="text" class="form-control" formControlName="channel_name" placeholder="Add channel name">
+          </div>
+          <div class="form-group">
+            <label for="description">Tell Viewers about your channel</label>
+            <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Add channel description"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary border-none bg-black" data-dismiss="modal" (click)="onCreateChannelClose()">Close</button>
+            <button type="submit" class="btn btn-primary bg-youtube-red border-none">CREATE</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

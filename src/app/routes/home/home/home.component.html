@@ -6,138 +6,17 @@
 
 <h2 style="margin-top:40px; margin-bottom: 40px;">Recommended</h2>
   <div class="row">
-    <div class="col">
+    <div class="col" *ngFor="let video of videos | async">
       <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+        <!-- <div style="background-color: black; height: 200px; width: 100%;"></div> -->
+        <a routerLink="/watch/{{video.id}}">
+          <img class="card-img-top" src="{{video.thumbnail_url}}" alt="Card image cap">
+        </a>
         <div class="card-body">
-          <h3 style="font-weight: bold;">Gucci Mane - Kitchen</h3>
-          <p class="card-text">670K views . 1 day ago</p>
+          <h5 style="font-weight: bold;"><img src="{{video.User.profile_pic}}" width="20px;" alt=""> {{video.title}}</h5>
+          <!-- <p class="card-text">670K views . 1 day ago</p> -->
+          <p class="card-text"> {{video.createdAt | dateAgo}}</p>
         </div>
       </div>
     </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">The Weekend - Often</h3>
-          <p class="card-text">800K views . 5 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Lil Wayne - Wasted</h3>
-          <p class="card-text">6M views . 10 years ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Gucci Mane - Kitchen</h3>
-          <p class="card-text">670K views . 1 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">The Weekend - Often</h3>
-          <p class="card-text">800K views . 5 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Lil Wayne - Wasted</h3>
-          <p class="card-text">6M views . 10 years ago</p>
-        </div>
-      </div>
-    </div>
-
-    <!--  -->
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Gucci Mane - Kitchen</h3>
-          <p class="card-text">670K views . 1 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">The Weekend - Often</h3>
-          <p class="card-text">800K views . 5 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Lil Wayne - Wasted</h3>
-          <p class="card-text">6M views . 10 years ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Gucci Mane - Kitchen</h3>
-          <p class="card-text">670K views . 1 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">The Weekend - Often</h3>
-          <p class="card-text">800K views . 5 day ago</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
-        <div style="background-color: black; height: 200px; width: 100%;"></div>
-        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-        <div class="card-body">
-          <h3 style="font-weight: bold;">Lil Wayne - Wasted</h3>
-          <p class="card-text">6M views . 10 years ago</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </div>

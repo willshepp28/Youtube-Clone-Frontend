@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { VideoService } from 'src/app/core/services/video/video.service';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { ChannelService } from 'src/app/core/services/channel/channel.service';
 
 @Component({
   selector: 'app-header',
@@ -10,26 +12,43 @@ import { AuthenticationService } from 'src/app/core/services/authentication/auth
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: any;
+  userHasChannel: any;
   createVideo: FormGroup;
+  createChannel: FormGroup;
   format: string;
   url: any;
   file: any;
 
 
+
   constructor(
     private formBuilder: FormBuilder,
     private videoService: VideoService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private channelService: ChannelService
   ) {
-    this.isLoggedIn = authenticationService.isLoggedIn();
+   authenticationService.isLoggedIn().subscribe(loggedIn => {
+     this.isLoggedIn = loggedIn;
+   });
+
+   userService.doesUserHaveChannel().subscribe(hasChannel => {
+     this.userHasChannel = hasChannel;
+   });
    }
 
   ngOnInit() {
-
+    console.log(`Is user logged in: ${this.isLoggedIn}`);
+    console.log(`Does user have channel: ${this.userHasChannel}`)
     this.createVideo = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
       video: ['', [Validators.required]]
+    });
+
+    this.createChannel = this.formBuilder.group({
+      channel_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
     });
   }
 
@@ -56,6 +75,10 @@ export class HeaderComponent implements OnInit {
     this.createVideo.reset();
   }
 
+  onCreateChannelClose(){
+    this.createChannel.reset();
+  }
+
   addNewVideo() {
 
     if (this.createVideo.invalid) {
@@ -72,6 +95,23 @@ export class HeaderComponent implements OnInit {
         }
     );
 
+  }
+
+
+  addNewChannel() {
+    if (this.createChannel.invalid) {
+      return;
+  }
+
+    return this.channelService.createChannel({value: this.createChannel.value}).subscribe(
+        results => {
+          this.userService.setUserHasChannel(true);
+          this.createChannel.reset();
+        },
+        error => {
+          console.log(error);
+        }
+    );
   }
 
 }

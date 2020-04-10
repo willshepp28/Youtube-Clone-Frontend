@@ -24,6 +24,7 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { AuthenticationService } from './core/services/authentication/authentication.service';
 import { SignInComponent } from './core/components/icons/sign-in/sign-in/sign-in.component';
 import { GoogleLogoComponent } from './core/components/icons/google-logo/google-logo/google-logo.component';
+import { DateAgoPipe } from './core/pipes/DateAgo/date-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { GoogleLogoComponent } from './core/components/icons/google-logo/google-
     LoginComponent,
     SignupComponent,
     SignInComponent,
-    GoogleLogoComponent
+    GoogleLogoComponent,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private doesUserHaveChannel = new BehaviorSubject(false);
+  private userHasChannel = new BehaviorSubject(JSON.parse(localStorage.getItem('has_channel')) || false);
 
-  constructor() {}
+  constructor(
+    private storageService: StorageService
+  ) {}
 
-  resetUserHasChannel() {
-    this.doesUserHaveChannel.next(false);
+  setUserHasChannel(value) {
+    this.storageService.addToStorage("has_channel", value);
+    this.userHasChannel.next(JSON.parse(localStorage.getItem("has_channel")));
   }
 
-  UserHasChannel() {
-    this.doesUserHaveChannel.next(true);
+  doesUserHaveChannel() {
+    return this.userHasChannel.asObservable();
+  }
+
+  resetUserHasChannel() {
+    this.userHasChannel.next(false);
   }
 
 
