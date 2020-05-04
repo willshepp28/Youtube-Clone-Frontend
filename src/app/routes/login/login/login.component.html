@@ -1,10 +1,19 @@
 
+<div *ngIf="errorHasOccurred" class="alert alert-danger mt-5" style="width: 25%; margin: 0 auto;" role="alert">
+  {{message}}
+</div>
+
+<div *ngIf="authenticated" class="alert alert-success mt-5" style="width: 25%; margin: 0 auto;" role="alert">
+  {{message}}
+</div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mx-auto border box-shadow-1" style="padding:15px; width: 30%; margin-top: 60px; border-radius: 8px;">
+      
       <div class="mb-5" style="text-align: center;">
         <youtube-google-logo></youtube-google-logo>
         <h3>Sign In</h3>
         <p>to continue to YouTube</p>
       </div>
+      
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email" placeholder="Enter email">

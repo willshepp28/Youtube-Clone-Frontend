@@ -26,6 +26,8 @@ import { SignInComponent } from './core/components/icons/sign-in/sign-in/sign-in
 import { GoogleLogoComponent } from './core/components/icons/google-logo/google-logo/google-logo.component';
 import { DateAgoPipe } from './core/pipes/DateAgo/date-ago.pipe';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { DateAgoPipe } from './core/pipes/DateAgo/date-ago.pipe';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     VideoService,

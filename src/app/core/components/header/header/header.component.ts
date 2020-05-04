@@ -4,7 +4,10 @@ import { VideoService } from 'src/app/core/services/video/video.service';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { ChannelService } from 'src/app/core/services/channel/channel.service';
+import { faVideo, faUserPlus, faUserCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
+// Add icons to the library for convenient access in other components
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,9 +18,14 @@ export class HeaderComponent implements OnInit {
   userHasChannel: any;
   createVideo: FormGroup;
   createChannel: FormGroup;
+  userProfilePic: any;
   format: string;
   url: any;
   file: any;
+  uploadStarted = false;
+  errorHasOccurred = false;
+  authenticated = false;
+  message: string;
 
 
 
@@ -26,8 +34,10 @@ export class HeaderComponent implements OnInit {
     private videoService: VideoService,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private channelService: ChannelService
+    private channelService: ChannelService,
+    library: FaIconLibrary
   ) {
+    library.addIcons(faVideo, faUserPlus, faUserCircle);
    authenticationService.isLoggedIn().subscribe(loggedIn => {
      this.isLoggedIn = loggedIn;
    });
@@ -35,20 +45,22 @@ export class HeaderComponent implements OnInit {
    userService.doesUserHaveChannel().subscribe(hasChannel => {
      this.userHasChannel = hasChannel;
    });
+
+   
    }
 
   ngOnInit() {
     console.log(`Is user logged in: ${this.isLoggedIn}`);
     console.log(`Does user have channel: ${this.userHasChannel}`)
     this.createVideo = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(1000)]],
       video: ['', [Validators.required]]
     });
 
     this.createChannel = this.formBuilder.group({
-      channel_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
+      channel_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(1000)]],
     });
   }
 
@@ -82,16 +94,28 @@ export class HeaderComponent implements OnInit {
   addNewVideo() {
 
     if (this.createVideo.invalid) {
+      console.log('invalid')
+
       return;
   }
-
+    this.uploadStarted = true;
+    this.message = "Upload started"
     return this.videoService.createVideo({value: this.createVideo.value, file: this.file }).subscribe(
         results => {
+          this.message = "Video successfully uploaded"
           console.log(results);
           this.createVideo.reset();
         },
         error => {
+          this.uploadStarted = false;
+          this.message = error.error.message || 'A error has occurred. Try again.'
           console.log(error);
+          this.errorHasOccurred = true;
+
+          setTimeout(() => {
+            this.message;
+            this.errorHasOccurred = false;
+          }, 2000)
         }
     );
 
@@ -109,7 +133,9 @@ export class HeaderComponent implements OnInit {
           this.createChannel.reset();
         },
         error => {
+          this.message = error.error.message;
           console.log(error);
+          this.errorHasOccurred = true;
         }
     );
   }

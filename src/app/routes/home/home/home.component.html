@@ -6,11 +6,11 @@
 
 <h2 style="margin-top:40px; margin-bottom: 40px;">Recommended</h2>
   <div class="row">
-    <div class="col" *ngFor="let video of videos | async">
-      <div class="card" style="width: 18rem; background: transparent; border: none;">
+    <div class="col-xl-4" *ngFor="let video of videos | async" >
+      <div class="card" style=" background: transparent; border: none;">
         <!-- <div style="background-color: black; height: 200px; width: 100%;"></div> -->
         <a routerLink="/watch/{{video.id}}">
-          <img class="card-img-top" src="{{video.thumbnail_url}}" alt="Card image cap">
+          <img class="card-img-top" src="{{video.thumbnail_url}}" alt="Card image cap" style="max-height: 162px;">
         </a>
         <div class="card-body">
           <h5 style="font-weight: bold;"><img src="{{video.User.profile_pic}}" width="20px;" alt=""> {{video.title}}</h5>

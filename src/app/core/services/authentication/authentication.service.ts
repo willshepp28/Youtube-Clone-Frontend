@@ -44,6 +44,7 @@ export class AuthenticationService {
         map(user => {
           localStorage.setItem('token', user.token);
           this.userService.setUserHasChannel(user.hasChannel);
+          this.userService.setUserProfilePic(user.profile_pic);
           this.userLoggedIn.next(true);
         })
       );

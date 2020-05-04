@@ -10,3 +10,17 @@ youtube-video-camera  {
 youtube-sign-in {
   fill: #606060
 }
+
+
+
+.grey {
+  color: #606060 !important;
+}
+
+.navbar {
+  padding: 0 7px;
+}
+
+.nav-link {
+  padding: 0px;
+}

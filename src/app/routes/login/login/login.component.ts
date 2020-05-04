@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'youtube-login',
@@ -11,6 +12,9 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted: boolean;
+  errorHasOccurred = false;
+  authenticated = false;
+  message: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,9 +39,19 @@ export class LoginComponent implements OnInit {
 
     return this.authenticationService.logIn(this.loginForm.value).subscribe(
       res => {
-        this.router.navigate(['/home']);
+        this.errorHasOccurred = false;
+        this.authenticated = true;
+        this.message = "User has successfully logged in"
+        setTimeout (() => {
+          this.router.navigate(['/home']);
+          this.authenticated = false;
+       }, 2000);
       },
-      error => console.log(error)
+      error => {
+        // this.message = error.error.message;
+        console.log(error);
+        this.errorHasOccurred = true;
+      }
     );
   }
 

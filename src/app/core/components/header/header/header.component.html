@@ -1,29 +1,50 @@
-<nav class="navbar header-box-shadow" style="background-color: #FFFFFF; height: 56px;">
-  <a class="navbar-brand" [routerLink]="['/home']"><youtube-logo></youtube-logo></a>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+  });
+  </script>
 
+<nav class="navbar header-box-shadow" style="background-color: #FFFFFF;">
+  <a  [routerLink]="['/home']"><img src="https://youtube-clone-assets-2.s3.amazonaws.com/youtube_PNG13.png" alt="" style="height: 70px !important;"></a>
+    <!-- <a class="navbar-brand" [routerLink]="['/home']"><youtube-logo></youtube-logo></a> -->
+   
+    
+
+  
+
+<!-- style="height: 50px; position: relative; top: -4px;" -->
+  <!-- THIS IS THE ISSUE -->
   <ul class='nav pull-right'>
-    <li style="height: 50px;" >
-    <youtube-video-camera *ngIf="isLoggedIn && userHasChannel" data-toggle="modal" data-target="#exampleModal" ></youtube-video-camera>
-    <youtube-video-camera *ngIf="isLoggedIn && !userHasChannel" data-toggle="modal" data-target="#createChannelModal"></youtube-video-camera>
-    <a [routerLink]="['/login']" class="nav-link" style="height: 50px; position: relative; top: -4px;" *ngIf="!isLoggedIn">
-      <youtube-video-camera ></youtube-video-camera>
+    <li  style="margin-right: 15px;">
+    <!-- <youtube-video-camera *ngIf="isLoggedIn && userHasChannel" data-toggle="modal" data-target="#exampleModal" ></youtube-video-camera> -->
+    <!-- <youtube-video-camera *ngIf="isLoggedIn && !userHasChannel" data-toggle="modal" data-target="#createChannelModal"></youtube-video-camera> -->
+
+      <fa-icon icon="video" class="grey" *ngIf="isLoggedIn && userHasChannel" data-toggle="modal" data-target="#exampleModal" size="1x"></fa-icon>
+      <fa-icon icon="video" class="grey"  *ngIf="isLoggedIn && !userHasChannel" data-toggle="modal" data-target="#createChannelModal" size="1x"></fa-icon>
+ 
+
+   
+    <a [routerLink]="['/login']" class="nav-link" *ngIf="!isLoggedIn" data-toggle="tooltip" title="Sign in to upload a video">
+      <!-- <youtube-video-camera ></youtube-video-camera> -->
+      <fa-icon icon="video" class="grey" size="1x"></fa-icon>
     </a>
     </li>
     <li>
-      <a *ngIf="isLoggedIn; else notLoggedIn">
-        <a class='nav-link'>
-          <div class="rounded-circle" style="background-color: #EF6B02; color: white; height: 32px; width: 32px;">
+      <a *ngIf="isLoggedIn; else notLoggedIn" class="nav-link">
+          <!-- <div class="rounded-circle" style="background-color: #EF6B02; color: white; height: 32px; width: 32px;">
             <p class="mx-auto" style="text-align: center; padding: 3px;">W</p>
-          </div>
+          </div> -->
+          <fa-icon class="grey" icon="user-circle" size="1x"></fa-icon>
         </a>
-      </a>
       <ng-template #notLoggedIn>
-        <a [routerLink]="['/login']" class="nav-link" style="height: 50px;">
-          <youtube-sign-in></youtube-sign-in>
+        <a [routerLink]="['/login']" class="nav-link"  data-toggle="tooltip" title="Sign in to access account">
+          <!-- <youtube-sign-in ></youtube-sign-in> -->
+          <fa-icon icon="user-plus" class="grey" size="1x"></fa-icon>
         </a>
       </ng-template>
     </li>
   </ul>
+    <!-- THIS IS THE ISSUE -->
 </nav>
 
 
@@ -40,6 +61,17 @@
         </button>
       </div>
       <div class="modal-body">
+        <div *ngIf="errorHasOccurred" class="alert alert-danger mt-5" style="width: 75%; margin: 0 auto;" role="alert">
+          {{message}}
+        </div>
+        
+        <div *ngIf="uploadStarted" class="alert alert-success mt-5" style="width: 85%; margin: 0 auto;" role="alert">
+         
+          <div class="row">
+              <P style="margin: 0 auto;">Upload process has begun</P>
+          </div>
+
+        </div>
         <form [formGroup]="createVideo" (ngSubmit)="addNewVideo()">
           <div class="form-group">
             <label for="title">Title</label>
@@ -83,6 +115,13 @@
       <div class="modal-body">
         <p class="text-danger" style="font-size: 11px;">You must first create a channel to start adding videos</p>
         <form [formGroup]="createChannel" (ngSubmit)="addNewChannel()">
+          <div *ngIf="errorHasOccurred" class="alert alert-danger mt-5" style="width: 25%; margin: 0 auto;" role="alert">
+            {{message}}
+          </div>
+          
+          <div *ngIf="authenticated" class="alert alert-success mt-5" style="width: 25%; margin: 0 auto;" role="alert">
+            {{message}}
+          </div>
           <div class="form-group">
             <label for="title">Channel name</label>
             <input type="text" class="form-control" formControlName="channel_name" placeholder="Add channel name">

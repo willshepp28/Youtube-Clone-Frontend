@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   submitted: boolean;
+  errorHasOccurred = false;
+  authenticated = false;
+  message: string;
 
 
   constructor(
@@ -38,9 +41,19 @@ export class SignupComponent implements OnInit {
 
     return this.authenticationService.registerUser(this.signupForm.value).subscribe(
       res => {
-        this.router.navigate(['/login']);
+        this.errorHasOccurred = false;
+        this.authenticated = true;
+        this.message = "User has successfully signed up"
+        setTimeout (() => {
+          this.router.navigate(['/login']);
+          this.authenticated = false;
+       }, 2000);
       },
-      error => console.log(error)
+      error => {
+        this.message = error.error.message;
+        console.log(error);
+        this.errorHasOccurred = true;
+      }
     );
   }
 
